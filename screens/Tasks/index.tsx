@@ -1,12 +1,8 @@
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DrawerToggleButton } from "@react-navigation/drawer";
 
 import TasksList from "./TasksList";
 import DetailTask from "./DetailTask";
-import { IAnyTask } from "./types";
 import Task from "./Task";
 import { TasksTabParamList } from "@navigation/types";
 import TaskProvider from "./store";

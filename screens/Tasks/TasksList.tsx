@@ -1,7 +1,6 @@
-import { common } from "@styles/common";
 import { FlatList, Pressable, Switch } from "native-base";
 import { useCallback, useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import { TasksDirection, fakeTasksData } from "./FakeDirection";
 
 import {
@@ -28,9 +27,6 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
   );
 
   useEffect(() => {
-    // navigation.navigate("task", {
-    //   item: fakeData()[0],
-    // });
     navigation.setOptions({
       headerLeft: () => (
         <Switch size="sm" ml="6" onValueChange={handleChangePreviewStatus} />
@@ -40,15 +36,11 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
   }, []);
 
   const handleGoToDetail = useCallback(
-    (item: IAnyTask) => {
-      navigation.navigate("Task", { uuid: item.uuid });
+    ({ uuid }: IAnyTask) => {
+      navigation.navigate("Task", { uuid });
     },
     [navigation]
   );
-
-  useEffect(() => {
-    // console.log(tasks.entries(), tasks.values());
-  }, [tasks]);
 
   return (
     <SafeAreaView>
@@ -74,13 +66,3 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
     </SafeAreaView>
   );
 };
-
-const page = StyleSheet.create({
-  container: {
-    display: "flex",
-    padding: 24,
-    alignItems: "stretch",
-  },
-});
-
-const containerStyles = StyleSheet.flatten([page.container, common.container]);
