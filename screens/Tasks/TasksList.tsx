@@ -47,7 +47,7 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
   );
 
   useEffect(() => {
-    console.log(tasks.entries(), tasks.values());
+    // console.log(tasks.entries(), tasks.values());
   }, [tasks]);
 
   return (

@@ -21,7 +21,6 @@ const maybe = Math.round(Math.random());
 export default ({ navigation, route }: FlightSearchRouteProps) => {
   const [isEmpty, setEmptyStatus] = useState(true);
 
-  console.log(route.params.uuid);
   const handleChangeSwitch = useCallback(
     (value: boolean) => setEmptyStatus(!value),
     [setEmptyStatus]

@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   createDrawerNavigator,
@@ -10,8 +10,6 @@ import { Box, NativeBaseProvider, Text } from "native-base";
 
 import { MainNavigationBar } from "./components/MainNavigationBar";
 
-// import AccessToGeoData from "./screens/AccessToGeoData";
-// import SingIn from "./screens/SingIn";
 import Information from "./screens/Information";
 import FlightSearch from "./screens/FlightSearch";
 import CallRequest from "./screens/CallRequest";
@@ -22,15 +20,24 @@ import { StatusBar } from "expo-status-bar";
 import Navigation from "@navigation/index";
 import useCachedResources from "@hooks/useCachedResources";
 
-type Routing = {
-  Home: undefined;
-  Detail: undefined;
-  SingIn: undefined;
-  AccessToGeoData: undefined;
-  DetailTask: undefined;
+// import Sentry, { web, SENTRY_CONFIG } from "@utils/Sentry";
+// Sentry.init(SENTRY_CONFIG);
+
+// todo arg typing?
+export default () => {
+  const isLoadingComplete = useCachedResources();
+
+  return !isLoadingComplete ? null : (
+    <SafeAreaProvider>
+      <NativeBaseProvider>
+        <Navigation />
+        <StatusBar />
+      </NativeBaseProvider>
+    </SafeAreaProvider>
+  );
 };
 
-export type RouteProps = DrawerScreenProps<Routing>;
+// мусор ниже
 
 const Drawer = createDrawerNavigator();
 
@@ -129,16 +136,3 @@ const BaseAppDrawerPages = () => (
     </Drawer.Navigator>
   </Box>
 );
-
-export default () => {
-  const isLoadingComplete = useCachedResources();
-
-  return !isLoadingComplete ? null : (
-    <SafeAreaProvider>
-      <NativeBaseProvider>
-        <Navigation />
-        <StatusBar />
-      </NativeBaseProvider>
-    </SafeAreaProvider>
-  );
-};

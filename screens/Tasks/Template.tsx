@@ -58,7 +58,7 @@ export const BaseShortTask = ({
 
 const styles = StyleSheet.create({
   type: {
-    minWidth: "72px",
+    minWidth: 72,
     alignItems: "center",
   },
 });

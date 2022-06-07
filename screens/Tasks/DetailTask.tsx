@@ -29,7 +29,7 @@ export default ({ route }: TasksTabScreenProps<"Detail">) => {
   const { tasks } = useTasks();
   const detail = useMemo(() => tasks.get(uuid), [uuid]);
 
-  console.log(detail);
+  // console.log(detail);
   return (
     <View>
       <DataListBox

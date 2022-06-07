@@ -17,7 +17,9 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/28a71a99-533e-44bd-aea2-152106cf9100"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -33,6 +35,21 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
+    },
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "svo-4r",
+            "project": "React Native",
+            "authToken": "25a41b3673cf40bd866c89c9584b69e29584728da7ae42efaf3ba34e02be7a67"
+          }
+        }
+      ]
     }
   }
 }

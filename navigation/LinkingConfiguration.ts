@@ -22,7 +22,12 @@ const linking: LinkingOptions<RootStackParamList> = {
               Task: {},
             },
           },
-          FlightSearch: {},
+          FlightSearch: {
+            screens: {
+              Search: {},
+              Detail: {},
+            },
+          },
           Information: {},
         },
       },

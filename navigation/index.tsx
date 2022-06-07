@@ -1,32 +1,18 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
 import { FontAwesome } from "@expo/vector-icons";
 import {
   createDrawerNavigator,
   DrawerToggleButton,
 } from "@react-navigation/drawer";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Information from "@screens/Information";
 import Tasks from "@screens/Tasks";
 import * as React from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
 
 import CallRequestModal from "../screens/CallRequest";
 
-import {
-  RootDrawerTabParamList,
-  RootDrawerProps,
-  RootStackParamList,
-} from "./types";
+import { RootDrawerTabParamList, RootStackParamList } from "./types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { MainNavigationBar } from "@components/MainNavigationBar";
 
@@ -80,6 +66,7 @@ const DrawerTabNavigation = () => (
       component={Tasks}
       options={{
         headerShown: false,
+        title: "Обзор задач",
       }}
     />
     <DrawerTab.Screen
@@ -90,62 +77,6 @@ const DrawerTabNavigation = () => (
   </DrawerTab.Navigator>
 );
 
-const st = StyleSheet.create({
-  headerBackground: {
-    backgroundColor: "transparent",
-  },
-});
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- *
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
-
-function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}
-    >
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootDrawerProps<"Home">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Home")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}
-*/
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
