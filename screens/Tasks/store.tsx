@@ -1,19 +1,25 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { IAnyTask } from "./types";
+import { IAnyTypeTask } from "./types";
 
-export interface ITaskContext {
-  tasks: ReadonlyMap<string, IAnyTask>;
-  updateTasks(task: IAnyTask): void;
-  updateTasks(data: [string, IAnyTask][]): void;
+export interface ITasksContext {
+  tasks: ReadonlyMap<string, IAnyTypeTask>;
+  updateTasks(task: IAnyTypeTask): void;
+  updateTasks(data: [string, IAnyTypeTask][]): void;
 }
 
-export const TaskContext = createContext<ITaskContext | null>(null);
+export const TaskContext = createContext<ITasksContext | null>(null);
 
-const TaskProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const [tasks, upTasks] = useState(new Map<string, IAnyTask>());
+type InitialProps = {
+  initialTasks?: [string, IAnyTypeTask][];
+};
+
+const TasksProvider: React.FC<InitialProps> = ({ initialTasks, children }) => {
+  const [tasks, upTasks] = useState(
+    new Map<string, IAnyTypeTask>(initialTasks)
+  );
 
   const updateTasks = useCallback(
-    (data: [string, IAnyTask][] | IAnyTask) => {
+    (data: [string, IAnyTypeTask][] | IAnyTypeTask) => {
       if (Array.isArray(data)) {
         upTasks((prev) => new Map([...prev, ...data]));
       } else {
@@ -29,7 +35,7 @@ const TaskProvider: React.FC<React.ReactNode> = ({ children }) => {
 };
 
 export function useTasks() {
-  const context = useContext(TaskContext) as ITaskContext;
+  const context = useContext(TaskContext) as ITasksContext;
 
   if (context == undefined) {
     throw new Error("useTasks must be used within a TaskProvider");
@@ -38,4 +44,4 @@ export function useTasks() {
   return context;
 }
 
-export default TaskProvider;
+export default TasksProvider;

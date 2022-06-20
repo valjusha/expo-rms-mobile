@@ -9,7 +9,7 @@ export const DataListBox = ({ title, data }: DataListBoxProps) => (
   <Box
     borderWidth="1"
     borderColor="coolGray.300"
-    shadow="3"
+    shadow="2"
     bg="white"
     p="5"
     m="15"

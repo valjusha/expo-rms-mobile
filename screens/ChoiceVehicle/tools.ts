@@ -17,7 +17,18 @@ const randomStr = (length: number) => {
   return result;
 };
 
-export const generateFakeData = () => {
+export interface IFakeVehicleData {
+  dictionary: string[];
+  fakeData: {
+    title: string;
+    data: {
+      uuid: string;
+      value: string;
+    }[];
+  }[];
+}
+
+export const generateFakeVehicleData = (): IFakeVehicleData => {
   const [from, to] = rangeAlphabet;
   const dictionary = alphabet.slice(from, to);
   const fakeData = dictionary.map((letter) => ({

@@ -85,10 +85,11 @@ const page = StyleSheet.create({
     alignItems: "stretch",
   },
   search: {
-    flex: 1,
-    flexShrink: 0,
-    flexBasis: 42,
-    width: "100%",
+    marginTop: 6,
+    // flex: 1,
+    // flexShrink: 0,
+    // flexBasis: 42,
+    // width: "100%",
   },
   content: {
     flex: 1,
@@ -132,7 +133,7 @@ interface SearchBarProps {
   onPress?: PressableProps["onPress"];
 }
 
-const SearchBar = ({ onChangeText, onPress }: SearchBarProps) => (
+export const SearchBar = ({ onChangeText, onPress }: SearchBarProps) => (
   <View style={page.search}>
     <HStack alignItems="center">
       <Input variant="outline" flex={1} onChangeText={onChangeText} />

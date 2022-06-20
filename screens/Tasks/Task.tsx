@@ -1,7 +1,9 @@
 import {
   Box,
+  Button,
   Center,
   Divider,
+  Flex,
   HStack,
   Icon,
   Pressable,
@@ -11,13 +13,22 @@ import {
   VStack,
 } from "native-base";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
-import { BaseShortTask } from "./Template";
-import { IAnyTask, ISpecialTask } from "./types";
+import { IAnyTypeTask, ISpecialTask } from "./types";
 import { format } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { TasksTabScreenProps } from "@navigation/types";
 import { useTasks } from "./store";
+import {
+  MultiTripTask,
+  ShortTask,
+  SingleTask,
+  SpecialTask,
+  StaticTask,
+} from "./Templates";
+import { SingleShort } from "./Templates/SingleShort";
+import { SpecialShort } from "./Templates/SpecialShort";
+import { StateTask } from "./Templates/StateTask";
 
 const iconMap: { [key: string]: any } = {
   static: {
@@ -48,9 +59,21 @@ export default ({ route, navigation }: TasksTabScreenProps<"Task">) => {
   }, [uuid]);
 
   return !detail ? null : (
-    <View>
-      <BaseShortTask item={detail} />
+    <View flex={1}>
+      <Box>
+        {detail.representationType == "single" && (
+          <SingleShort task={detail} backgroundColor="transparent" />
+        )}
+        {detail.representationType == "special" && (
+          <SpecialShort
+            task={detail}
+            numberOfLines={1}
+            backgroundColor="transparent"
+          />
+        )}
+      </Box>
       <Divider />
+
       <Pressable
         onPress={() => {
           handleGoToDetailInformationTask();
@@ -58,12 +81,16 @@ export default ({ route, navigation }: TasksTabScreenProps<"Task">) => {
       >
         <StrategyTemplate item={detail} />
       </Pressable>
+
+      <Center mt="auto" backgroundColor="white" p={3} pb={5}>
+        <StateTask task={detail} />
+      </Center>
     </View>
   );
 };
 
 type StrategyTemplateProps = {
-  item: IAnyTask;
+  item: IAnyTypeTask;
 };
 
 const StrategyTemplate = ({ item }: StrategyTemplateProps) => (
@@ -73,61 +100,17 @@ const StrategyTemplate = ({ item }: StrategyTemplateProps) => (
   </HStack>
 );
 
-const strategyRenderTemplate = (data: IAnyTask) => {
-  switch (data.type) {
+const strategyRenderTemplate = (data: IAnyTypeTask) => {
+  switch (data.representationType) {
     case "special":
-      return <SpecialTaskTemplate {...data} />;
-    case "multi":
+      return <SpecialTask task={data} />;
+    // case "multi":
+    //   return <MultiTripTask task={data} />;
     case "single":
-    case "static":
+      return <SingleTask task={data} />;
+    // case "static":
+    //   return <StaticTask task={data} />;
     default:
       return null;
   }
 };
-
-const SpecialTaskTemplate = ({
-  typeTask,
-  workingDate,
-  remark,
-}: ISpecialTask) => (
-  <VStack flex="1">
-    <HStack space={2}>
-      <Text mt="2" fontSize="sm" color="coolGray.500">
-        Позиция
-      </Text>
-      <Spacer />
-      <Text mt="2" fontSize="sm" color="coolGray.700">
-        {typeTask}
-      </Text>
-    </HStack>
-    <HStack space={2}>
-      <Text mt="2" fontSize="sm" color="coolGray.500">
-        Время начала
-      </Text>
-      <Spacer />
-      <Text mt="2" fontSize="sm" color="coolGray.700">
-        {format(workingDate[0], "hh:mm")}
-      </Text>
-    </HStack>
-    <HStack space={2}>
-      <Text mt="2" fontSize="sm" color="coolGray.500">
-        Время окончания
-      </Text>
-      <Spacer />
-      <Text mt="2" fontSize="sm" color="coolGray.700">
-        {format(workingDate[1], "hh:mm")}
-      </Text>
-    </HStack>
-    {remark && (
-      <HStack space={2}>
-        <Text mt="2" fontSize="sm" color="coolGray.500">
-          Ремарка
-        </Text>
-        <Spacer />
-        <Text mt="2" fontSize="sm" color="coolGray.700">
-          {remark}
-        </Text>
-      </HStack>
-    )}
-  </VStack>
-);

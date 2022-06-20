@@ -10,7 +10,7 @@ import {
   VStack,
 } from "native-base";
 import {
-  IAnyTask,
+  IAnyTypeTask,
   IMultiTripTask,
   ISingleTripTask,
   ISpecialTask,
@@ -21,7 +21,7 @@ import { format } from "date-fns";
 import { StyleSheet } from "react-native";
 
 interface BaseShortTaskProps {
-  item: IAnyTask;
+  item: IAnyTypeTask;
   backgroundColor?: string;
 }
 

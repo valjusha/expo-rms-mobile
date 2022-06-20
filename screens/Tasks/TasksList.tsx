@@ -1,4 +1,14 @@
-import { FlatList, Pressable, Switch } from "native-base";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+import {
+  Badge,
+  FlatList,
+  HStack,
+  Icon,
+  Pressable,
+  Switch,
+  Text,
+  VStack,
+} from "native-base";
 import { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
 import { TasksDirection, fakeTasksData } from "./FakeDirection";
@@ -8,15 +18,20 @@ import {
   ISingleTripTask,
   ISpecialTask,
   IStaticTask,
-  IAnyTask,
+  IAnyTypeTask,
 } from "./types";
 import { BaseShortTask } from "./Template";
 import { TasksTabScreenProps } from "@navigation/types";
 import { useTasks } from "./store";
-import { getFakeDataMap } from "./utils";
+import { ShortTask } from "./Templates";
+import { SingleShort } from "./Templates/SingleShort";
+import { SpecialShort } from "./Templates/SpecialShort";
+
+const maybe = () => Math.round(Math.random());
 
 export default ({ navigation }: TasksTabScreenProps<"List">) => {
-  const { tasks, updateTasks } = useTasks();
+  const iconV = maybe();
+  const { tasks } = useTasks();
   const [isDemo, changePreviewDataStatus] = useState(false);
 
   const handleChangePreviewStatus = useCallback(
@@ -26,17 +41,21 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
     [changePreviewDataStatus]
   );
 
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerLeft: () => (
+  //       <Switch size="sm" ml="6" onValueChange={handleChangePreviewStatus} />
+  //     ),
+  //   });
+  // }, []);
+
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <Switch size="sm" ml="6" onValueChange={handleChangePreviewStatus} />
-      ),
-    });
-    updateTasks(getFakeDataMap());
-  }, []);
+    // navigation.navigate("ChoiceVehicleModal");
+    // navigation.navigate("Detail", { uuid: [...tasks.keys()][1] });
+  }, [tasks]);
 
   const handleGoToDetail = useCallback(
-    ({ uuid }: IAnyTask) => {
+    ({ uuid }: IAnyTypeTask) => {
       navigation.navigate("Task", { uuid });
     },
     [navigation]
@@ -56,7 +75,12 @@ export default ({ navigation }: TasksTabScreenProps<"List">) => {
                   handleGoToDetail(item);
                 }}
               >
-                <BaseShortTask item={item} backgroundColor="white" />
+                {item.representationType == "single" && (
+                  <SingleShort task={item} backgroundColor="white" />
+                )}
+                {item.representationType == "special" && (
+                  <SpecialShort task={item} backgroundColor="white" />
+                )}
               </Pressable>
             )}
             keyExtractor={(item) => item.uuid}

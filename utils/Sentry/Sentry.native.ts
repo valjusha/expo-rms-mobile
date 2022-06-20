@@ -1,3 +1,3 @@
-import * as Sentry from "@sentry/react-native";
+import * as SentryNative from "@sentry/react-native";
 
-export default Sentry;
+export default SentryNative;

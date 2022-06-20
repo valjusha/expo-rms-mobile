@@ -7,8 +7,9 @@ import { Text, Button } from "react-native";
 
 import FlightSearch from "./FlightSearch";
 import FlightDetail from "./FlightDetail";
-import { RouteProps } from "../../App";
+
 import { DrawerToggleButton } from "@react-navigation/drawer";
+import { TasksTabScreenProps } from "@navigation/types";
 
 export type FlightSearchRouteProps = NativeStackScreenProps<
   {
@@ -21,7 +22,7 @@ export type FlightSearchRouteProps = NativeStackScreenProps<
 
 const Stack = createNativeStackNavigator();
 
-export default ({ navigation }: RouteProps) => {
+export default ({ navigation }: TasksTabScreenProps<"List">) => {
   const handleOpenMainNavigation = useCallback(() => {
     navigation.openDrawer();
   }, [navigation]);

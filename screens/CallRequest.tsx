@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { common } from "@styles/common";
 import { Box, Button, Radio, Text, View } from "native-base";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert } from "react-native";
 
 export default ({ navigation }: NativeStackScreenProps<{}>) => {

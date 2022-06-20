@@ -19,7 +19,9 @@ declare global {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootDrawerTabParamList> | undefined;
+  DetailTaskModal: NavigatorScreenParams<TaskParamProps>;
   CallRequestModal: undefined;
+  ChoiceVehicleModal: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -28,7 +30,6 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootDrawerTabParamList = {
   Tasks: NavigatorScreenParams<TasksTabParamList>;
   FlightSearch: NavigatorScreenParams<FlightSearchTabParamList>;
-  ChoiceVehicle: undefined;
   Information: undefined;
 };
 

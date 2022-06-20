@@ -1,8 +1,7 @@
-import * as React from "react";
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   createDrawerNavigator,
-  DrawerScreenProps,
   DrawerToggleButton,
 } from "@react-navigation/drawer";
 
@@ -19,21 +18,25 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Navigation from "@navigation/index";
 import useCachedResources from "@hooks/useCachedResources";
-
-// import Sentry, { web, SENTRY_CONFIG } from "@utils/Sentry";
-// Sentry.init(SENTRY_CONFIG);
+import TasksProvider from "@screens/Tasks/store";
+import { getFakeDataMap } from "@screens/Tasks/fakeData";
+import { VehicleProvider } from "@store/vehicle";
 
 // todo arg typing?
 export default () => {
   const isLoadingComplete = useCachedResources();
 
   return !isLoadingComplete ? null : (
-    <SafeAreaProvider>
-      <NativeBaseProvider>
-        <Navigation />
-        <StatusBar />
-      </NativeBaseProvider>
-    </SafeAreaProvider>
+    <VehicleProvider>
+      <TasksProvider initialTasks={getFakeDataMap()}>
+        <SafeAreaProvider>
+          <NativeBaseProvider>
+            <Navigation />
+            <StatusBar />
+          </NativeBaseProvider>
+        </SafeAreaProvider>
+      </TasksProvider>
+    </VehicleProvider>
   );
 };
 
